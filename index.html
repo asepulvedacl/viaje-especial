@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+
+<title>¿Dónde vamos?</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+:root{
+  --bg:#07111f;
+  --bg2:#0b1828;
+  --card:#0d1d30;
+  --line:rgba(255,255,255,.10);
+  --text:#f6f3ed;
+  --muted:#8d9bab;
+  --gold:#d9b46d;
+  --gold2:#f2d59c;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:"DM Sans",sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%, #173454 0%, transparent 35%),
+    linear-gradient(180deg,var(--bg),#050b13);
+  color:var(--text);
+  min-height:100vh;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.035;
+  background-image:
+    linear-gradient(rgba(255,255,255,.8) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+
+/* HERO */
+
+.hero{
+  min-height:92vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:50px 24px;
+  position:relative;
+}
+
+.hero-inner{
+  max-width:700px;
+}
+
+.eyebrow{
+  font-size:11px;
+  letter-spacing:5px;
+  color:var(--gold);
+  font-weight:700;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(55px,13vw,105px);
+  line-height:.88;
+  letter-spacing:-4px;
+  margin-bottom:28px;
+}
+
+.hero h1 span{
+  color:var(--gold2);
+  font-style:italic;
+}
+
+.subtitle{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.7;
+  max-width:460px;
+  margin:auto;
+}
+
+.trip-date{
+  margin-top:42px;
+  font-size:13px;
+  letter-spacing:4px;
+  color:#fff;
+}
+
+/* COUNTDOWN */
+
+.countdown{
+  margin:38px auto 0;
+  display:flex;
+  justify-content:center;
+  gap:9px;
+}
+
+.time{
+  width:70px;
+  padding:14px 5px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.time strong{
+  display:block;
+  font-size:22px;
+  color:var(--gold2);
+}
+
+.time span{
+  font-size:8px;
+  color:var(--muted);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+.scroll{
+  position:absolute;
+  bottom:25px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+/* MAIN */
+
+main{
+  width:min(720px,calc(100% - 32px));
+  margin:auto;
+  padding:60px 0 100px;
+}
+
+.section-head{
+  margin-bottom:30px;
+}
+
+.section-head small{
+  color:var(--gold);
+  letter-spacing:3px;
+  font-size:10px;
+  font-weight:700;
+}
+
+.section-head h2{
+  font-family:"Playfair Display",serif;
+  font-size:36px;
+  margin-top:8px;
+}
+
+.section-head p{
+  color:var(--muted);
+  margin-top:12px;
+  line-height:1.6;
+  font-size:14px;
+}
+
+/* PROGRESS */
+
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:var(--muted);
+  margin:28px 0 9px;
+}
+
+.progress{
+  height:3px;
+  background:rgba(255,255,255,.08);
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:35px;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--gold);
+  transition:.6s;
+}
+
+/* CARDS */
+
+.clues{
+  display:grid;
+  gap:15px;
+}
+
+.clue{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:25px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.035),rgba(255,255,255,.01));
+  overflow:hidden;
+  transition:.25s;
+}
+
+.clue.available{
+  cursor:pointer;
+}
+
+.clue.available:hover{
+  border-color:rgba(217,180,109,.45);
+  transform:translateY(-2px);
+}
+
+.big-number{
+  position:absolute;
+  right:15px;
+  top:-18px;
+  font-family:"Playfair Display",serif;
+  font-size:100px;
+  color:rgba(255,255,255,.025);
+  line-height:1;
+}
+
+.clue-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:22px;
+}
+
+.clue-number{
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:2px;
+  font-weight:700;
+}
+
+.status{
+  font-size:9px;
+  padding:5px 9px;
+  border-radius:20px;
+  border:1px solid var(--line);
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.clue h3{
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.unlock-date{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.open-button{
+  margin-top:22px;
+  width:100%;
+  border:1px solid rgba(217,180,109,.35);
+  color:var(--gold2);
+  background:rgba(217,180,109,.06);
+  padding:14px;
+  border-radius:12px;
+  font-family:inherit;
+  font-size:11px;
+  letter-spacing:2px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.locked .open-button{
+  color:#667382;
+  border-color:var(--line);
+  background:rgba(255,255,255,.015);
+}
+
+/* REVEAL */
+
+.reveal{
+  display:none;
+  padding-top:8px;
+  animation:reveal .5s ease;
+}
+
+.reveal.visible{
+  display:block;
+}
+
+.reveal-line{
+  width:30px;
+  height:1px;
+  background:var(--gold);
+  margin-bottom:18px;
+}
+
+.reveal p{
+  font-family:"Playfair Display",serif;
+  font-size:24px;
+  line-height:1.35;
+  color:#fff;
+}
+
+@keyframes reveal{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(2,7,12,.88);
+  backdrop-filter:blur(12px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  z-index:50;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(400px,100%);
+  background:#0c1929;
+  border:1px solid rgba(217,180,109,.25);
+  border-radius:22px;
+  padding:35px 28px;
+  text-align:center;
+  animation:modalIn .3s ease;
+}
+
+.modal-icon{
+  font-size:27px;
+  margin-bottom:20px;
+}
+
+.modal-box small{
+  color:var(--gold);
+  letter-spacing:3px;
+  font-size:9px;
+}
+
+.modal-box h3{
+  font-family:"Playfair Display",serif;
+  font-size:30px;
+  margin:10px 0;
+}
+
+.modal-box p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
+}
+
+.modal-box button{
+  margin-top:25px;
+  border:0;
+  border-radius:12px;
+  background:var(--gold);
+  color:#07111f;
+  font-weight:700;
+  padding:13px 25px;
+  cursor:pointer;
+}
+
+@keyframes modalIn{
+  from{opacity:0;transform:scale(.95)}
+  to{opacity:1;transform:scale(1)}
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#536171;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+@media(max-width:500px){
+  .hero{
+    min-height:90vh;
+  }
+
+  .hero h1{
+    letter-spacing:-2px;
+  }
+
+  .time{
+    width:62px;
+  }
+
+  main{
+    padding-top:40px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <div class="eyebrow">DESTINO CONFIDENCIAL</div>
+
+    <h1>
+      ¿Dónde<br>
+      <span>vamos?</span>
+    </h1>
+
+    <p class="subtitle">
+      Hay un viaje esperando.<br>
+      El destino todavía es secreto.<br>
+      Nueve pistas te llevarán hasta él.
+    </p>
+
+    <div class="trip-date">
+      10 · 10 · 2026
+    </div>
+
+    <div class="countdown">
+
+      <div class="time">
+        <strong id="days">--</strong>
+        <span>Días</span>
+      </div>
+
+      <div class="time">
+        <strong id="hours">--</strong>
+        <span>Horas</span>
+      </div>
+
+      <div class="time">
+        <strong id="minutes">--</strong>
+        <span>Min</span>
+      </div>
+
+      <div class="time">
+        <strong id="seconds">--</strong>
+        <span>Seg</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="scroll">↓ DESCUBRE LAS PISTAS</div>
+
+</section>
+
+
+<main>
+
+  <div class="section-head">
+
+    <small>ARCHIVO DE VIAJE</small>
+
+    <h2>Las pistas</h2>
+
+    <p>
+      Una nueva pista se irá revelando cada día.
+      Algunas serán fáciles. Otras, quizás no tanto.
+    </p>
+
+  </div>
+
+  <div class="progress-info">
+    <span>PROGRESO</span>
+    <span id="progressText">0 / 9 descubiertas</span>
+  </div>
+
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="clues" id="clues"></div>
+
+</main>
+
+
+<footer>
+  9 PISTAS · 1 DESTINO
+</footer>
+
+
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-icon">🔒</div>
+
+    <small>ACCESO DENEGADO</small>
+
+    <h3>Todavía no</h3>
+
+    <p id="modalText"></p>
+
+    <button onclick="closeModal()">Entendido</button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   EDITA SOLAMENTE ESTA PARTE
+   ========================================= */
+
+const pistas = [
+
+  {
+    fecha:"2026-10-01",
+    texto:"Pista de prueba número uno."
+  },
+
+  {
+    fecha:"2026-10-02",
+    texto:"Pista de prueba número dos."
+  },
+
+  {
+    fecha:"2026-10-03",
+    texto:"Pista de prueba número tres."
+  },
+
+  {
+    fecha:"2026-10-04",
+    texto:"Pista de prueba número cuatro."
+  },
+
+  {
+    fecha:"2026-10-05",
+    texto:"Pista de prueba número cinco."
+  },
+
+  {
+    fecha:"2026-10-06",
+    texto:"Pista de prueba número seis."
+  },
+
+  {
+    fecha:"2026-10-07",
+    texto:"Pista de prueba número siete."
+  },
+
+  {
+    fecha:"2026-10-08",
+    texto:"Pista de prueba número ocho."
+  },
+
+  {
+    fecha:"2026-10-09",
+    texto:"Pista de prueba número nueve."
+  }
+
+];
+
+
+/* FECHA DEL VIAJE */
+
+const fechaViaje = new Date("2026-10-10T00:00:00");
+
+
+/* =========================================
+   DESDE AQUÍ NO NECESITAS EDITAR
+   ========================================= */
+
+
+function fechaLocal(fecha){
+
+  const [year,month,day] = fecha.split("-");
+
+  return new Date(
+    Number(year),
+    Number(month)-1,
+    Number(day),
+    0,0,0
+  );
+
+}
+
+
+function formatoFecha(fecha){
+
+  return fechaLocal(fecha)
+    .toLocaleDateString(
+      "es-CL",
+      {
+        day:"numeric",
+        month:"long"
+      }
+    )
+    .toUpperCase();
+
+}
+
+
+function renderClues(){
+
+  const container = document.getElementById("clues");
+
+  container.innerHTML="";
+
+  const ahora = new Date();
+
+  pistas.forEach((pista,index)=>{
+
+    const unlock = fechaLocal(pista.fecha);
+
+    const available = ahora >= unlock;
+
+    const card = document.createElement("article");
+
+    card.className =
+      "clue " +
+      (available ? "available" : "locked");
+
+    const numero =
+      String(index+1).padStart(2,"0");
+
+    card.innerHTML=`
+
+      <div class="big-number">${numero}</div>
+
+      <div class="clue-top">
+
+        <div class="clue-number">
+          PISTA ${numero}
+        </div>
+
+        <div class="status">
+          ${available ? "Disponible" : "Bloqueada"}
+        </div>
+
+      </div>
+
+      <h3>
+        ${available
+          ? "Hay algo que descubrir"
+          : "Información clasificada"}
+      </h3>
+
+      <div class="unlock-date">
+        ${available
+          ? "Disponible desde " + formatoFecha(pista.fecha)
+          : "Se revelará el " + formatoFecha(pista.fecha)}
+      </div>
+
+      <button
+        class="open-button"
+        onclick="openClue(${index})">
+
+        ${available
+          ? "DESCUBRIR PISTA →"
+          : "🔒 DESCUBRIR PISTA"}
+
+      </button>
+
+      <div
+        class="reveal"
+        id="reveal-${index}">
+
+        <div class="reveal-line"></div>
+
+        <p>${pista.texto}</p>
+
+      </div>
+
+    `;
+
+    container.appendChild(card);
+
+  });
+
+  updateProgress();
+
+}
+
+
+function openClue(index){
+
+  const pista = pistas[index];
+
+  const unlock = fechaLocal(pista.fecha);
+
+  const ahora = new Date();
+
+  if(ahora < unlock){
+
+    document.getElementById("modalText").innerHTML =
+      `Esta pista estará disponible el <strong style="color:#f2d59c">
+      ${formatoFecha(pista.fecha)}
+      </strong>.<br><br>Vuelve cuando llegue el momento.`;
+
+    document
+      .getElementById("modal")
+      .classList.add("show");
+
+    return;
+
+  }
+
+  const reveal =
+    document.getElementById(`reveal-${index}`);
+
+  reveal.classList.toggle("visible");
+
+  localStorage.setItem(
+    `pista-${index}`,
+    "descubierta"
+  );
+
+  updateProgress();
+
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("modal")
+    .classList.remove("show");
+
+}
+
+
+document
+  .getElementById("modal")
+  .addEventListener("click",function(e){
+
+    if(e.target===this){
+      closeModal();
+    }
+
+  });
+
+
+function updateProgress(){
+
+  let descubiertas=0;
+
+  pistas.forEach((_,index)=>{
+
+    if(
+      localStorage.getItem(`pista-${index}`)
+      ==="descubierta"
+    ){
+      descubiertas++;
+    }
+
+  });
+
+  document.getElementById("progressText").textContent =
+    `${descubiertas} / ${pistas.length} descubiertas`;
+
+  document.getElementById("progressBar").style.width =
+    `${(descubiertas/pistas.length)*100}%`;
+
+}
+
+
+/* CONTADOR */
+
+function countdown(){
+
+  const ahora = new Date();
+
+  const diferencia =
+    fechaViaje - ahora;
+
+  if(diferencia<=0){
+
+    document.getElementById("days").textContent="00";
+    document.getElementById("hours").textContent="00";
+    document.getElementById("minutes").textContent="00";
+    document.getElementById("seconds").textContent="00";
+
+    return;
+
+  }
+
+  const dias =
+    Math.floor(diferencia/86400000);
+
+  const horas =
+    Math.floor(
+      (diferencia%86400000)/3600000
+    );
+
+  const minutos =
+    Math.floor(
+      (diferencia%3600000)/60000
+    );
+
+  const segundos =
+    Math.floor(
+      (diferencia%60000)/1000
+    );
+
+  document.getElementById("days").textContent =
+    String(dias).padStart(2,"0");
+
+  document.getElementById("hours").textContent =
+    String(horas).padStart(2,"0");
+
+  document.getElementById("minutes").textContent =
+    String(minutos).padStart(2,"0");
+
+  document.getElementById("seconds").textContent =
+    String(segundos).padStart(2,"0");
+
+}
+
+
+renderClues();
+countdown();
+
+setInterval(countdown,1000);
+
+</script>
+
+</body>
+</html>
