@@ -14,11 +14,11 @@
   --bg:#07111f;
   --bg2:#0b1828;
   --card:#0d1d30;
-  --line:rgba(255,255,255,.10);
   --text:#f6f3ed;
-  --muted:#a6b1bf;
+  --muted:#9ca9b8;
   --gold:#d9b46d;
   --gold2:#f2d59c;
+  --line:rgba(255,255,255,.10);
 }
 
 *{
@@ -34,7 +34,7 @@ html{
 body{
   font-family:"Montserrat",sans-serif;
   background:
-    radial-gradient(circle at 50% -10%, #173454 0%, transparent 35%),
+    radial-gradient(circle at 50% -10%,#173454 0%,transparent 32%),
     linear-gradient(180deg,var(--bg),#050b13);
   color:var(--text);
   min-height:100vh;
@@ -45,21 +45,18 @@ body:before{
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.035;
+  opacity:.025;
   background-image:
-    linear-gradient(rgba(255,255,255,.8) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px);
+    linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);
   background-size:40px 40px;
   z-index:20;
 }
 
-
-/* =========================================
-   HERO
-   ========================================= */
+/* HERO */
 
 .hero{
-  min-height:92vh;
+  min-height:94vh;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -74,8 +71,7 @@ body:before{
   inset:0;
   background-image:url("portada.webp");
   background-size:cover;
-  background-position:center 43%;
-  opacity:.38;
+  background-position:center 42%;
   transform:scale(1.02);
 }
 
@@ -85,9 +81,9 @@ body:before{
   background:
     linear-gradient(
       180deg,
-      rgba(7,17,31,.56) 0%,
-      rgba(7,17,31,.66) 48%,
-      rgba(7,17,31,.98) 100%
+      rgba(7,17,31,.50) 0%,
+      rgba(7,17,31,.63) 48%,
+      rgba(7,17,31,.99) 100%
     );
 }
 
@@ -103,15 +99,14 @@ body:before{
   color:var(--gold2);
   font-weight:700;
   margin-bottom:30px;
-  text-shadow:0 2px 15px rgba(0,0,0,.5);
 }
 
 .hero h1{
   font-family:"Playfair Display",serif;
-  font-size:clamp(55px,13vw,105px);
+  font-size:clamp(58px,13vw,108px);
   line-height:.88;
   letter-spacing:-4px;
-  margin-bottom:28px;
+  margin-bottom:30px;
   text-shadow:0 8px 30px rgba(0,0,0,.45);
 }
 
@@ -121,25 +116,21 @@ body:before{
 }
 
 .subtitle{
-  color:#d0d6dd;
+  color:#d5dbe2;
   font-size:15px;
-  line-height:1.7;
-  max-width:460px;
+  line-height:1.75;
+  max-width:470px;
   margin:auto;
-  text-shadow:0 2px 12px rgba(0,0,0,.7);
 }
 
 .trip-date{
-  margin-top:42px;
+  margin-top:40px;
   font-size:13px;
   letter-spacing:4px;
   color:#fff;
 }
 
-
-/* =========================================
-   COUNTDOWN
-   ========================================= */
+/* COUNTDOWN */
 
 .countdown{
   margin:38px auto 0;
@@ -179,21 +170,18 @@ body:before{
   z-index:2;
 }
 
-
-/* =========================================
-   RECUERDOS
-   ========================================= */
+/* MOSAICO */
 
 .memories{
-  width:min(900px,calc(100% - 32px));
+  width:min(920px,calc(100% - 32px));
   margin:0 auto;
-  padding:70px 0 85px;
+  padding:85px 0 95px;
 }
 
 .memories-head{
   text-align:center;
-  max-width:600px;
-  margin:0 auto 48px;
+  max-width:620px;
+  margin:0 auto 45px;
 }
 
 .memories-head small{
@@ -205,81 +193,60 @@ body:before{
 
 .memories-head p{
   font-size:18px;
-  line-height:1.7;
+  line-height:1.75;
   color:#e2e6eb;
   margin-top:18px;
 }
 
-.memory-grid{
+.photo-mosaic{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-  align-items:stretch;
+  grid-template-columns:1.15fr .85fr .85fr;
+  grid-template-rows:250px 250px;
+  gap:12px;
 }
 
-.memory-card{
+.mosaic-photo{
   position:relative;
   overflow:hidden;
-  border-radius:22px;
-  border:1px solid rgba(217,180,109,.22);
-  background:#0d1d30;
-  min-height:310px;
-  box-shadow:0 20px 50px rgba(0,0,0,.15);
+  border-radius:18px;
+  border:1px solid rgba(217,180,109,.18);
+  background:var(--card);
 }
 
-.memory-card.large{
-  grid-row:span 2;
-  min-height:640px;
+.mosaic-photo.big{
+  grid-row:1 / 3;
 }
 
-.memory-card img{
+.mosaic-photo.wide{
+  grid-column:2 / 4;
+}
+
+.mosaic-photo img{
   width:100%;
   height:100%;
-  object-fit:cover;
   display:block;
-  position:absolute;
-  inset:0;
+  object-fit:cover;
   transition:transform .7s ease;
 }
 
-.memory-card:hover img{
+.mosaic-photo:hover img{
   transform:scale(1.035);
 }
 
-.memory-card:after{
+.mosaic-photo:after{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    linear-gradient(
-      180deg,
-      transparent 40%,
-      rgba(7,17,31,.08) 58%,
-      rgba(7,17,31,.90) 100%
-    );
+  background:linear-gradient(180deg,rgba(7,17,31,.02),rgba(7,17,31,.12));
+  pointer-events:none;
 }
 
-.memory-label{
-  position:absolute;
-  z-index:2;
-  bottom:20px;
-  left:22px;
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:#fff;
-}
-
-
-/* =========================================
-   MAIN
-   ========================================= */
+/* PISTAS */
 
 main{
   width:min(720px,calc(100% - 32px));
   margin:auto;
-  padding:60px 0 100px;
+  padding:55px 0 80px;
 }
 
 .section-head{
@@ -304,14 +271,9 @@ main{
 .section-head p{
   color:var(--muted);
   margin-top:12px;
-  line-height:1.6;
+  line-height:1.65;
   font-size:14px;
 }
-
-
-/* =========================================
-   PROGRESS
-   ========================================= */
 
 .progress-info{
   display:flex;
@@ -335,11 +297,6 @@ main{
   background:var(--gold);
   transition:.6s;
 }
-
-
-/* =========================================
-   CARDS
-   ========================================= */
 
 .clues{
   display:grid;
@@ -435,11 +392,6 @@ main{
   background:rgba(255,255,255,.015);
 }
 
-
-/* =========================================
-   REVEAL
-   ========================================= */
-
 .reveal{
   display:none;
   padding-top:8px;
@@ -458,7 +410,6 @@ main{
 }
 
 .reveal p{
-  font-family:"Montserrat",sans-serif;
   font-size:21px;
   font-weight:500;
   line-height:1.55;
@@ -476,16 +427,51 @@ main{
   }
 }
 
+/* FOTOS ENTRE PISTAS */
 
-/* =========================================
-   CIERRE
-   ========================================= */
+.story-break{
+  margin:35px 0 20px;
+}
+
+.story-photo{
+  height:390px;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(217,180,109,.18);
+  position:relative;
+}
+
+.story-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.story-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(7,17,31,.02),rgba(7,17,31,.15));
+}
+
+.story-double{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.story-double .story-photo{
+  height:350px;
+}
+
+/* CIERRE */
 
 .closing{
-  width:min(900px,calc(100% - 32px));
-  margin:0 auto 70px;
+  width:min(920px,calc(100% - 32px));
+  margin:35px auto 70px;
   position:relative;
-  height:560px;
+  height:580px;
   border-radius:26px;
   overflow:hidden;
   border:1px solid rgba(217,180,109,.22);
@@ -505,9 +491,9 @@ main{
   background:
     linear-gradient(
       180deg,
-      rgba(7,17,31,.04),
-      rgba(7,17,31,.18) 45%,
-      rgba(7,17,31,.92) 100%
+      rgba(7,17,31,.02),
+      rgba(7,17,31,.14) 45%,
+      rgba(7,17,31,.94) 100%
     );
 }
 
@@ -516,7 +502,7 @@ main{
   z-index:2;
   left:30px;
   right:30px;
-  bottom:35px;
+  bottom:38px;
   text-align:center;
 }
 
@@ -537,10 +523,7 @@ main{
   margin:auto;
 }
 
-
-/* =========================================
-   MODAL
-   ========================================= */
+/* MODAL */
 
 .modal{
   position:fixed;
@@ -614,11 +597,6 @@ main{
   }
 }
 
-
-/* =========================================
-   FOOTER
-   ========================================= */
-
 footer{
   text-align:center;
   padding:30px;
@@ -627,15 +605,12 @@ footer{
   letter-spacing:2px;
 }
 
+/* MOBILE */
 
-/* =========================================
-   MOBILE
-   ========================================= */
-
-@media(max-width:600px){
+@media(max-width:650px){
 
   .hero{
-    min-height:90vh;
+    min-height:92vh;
   }
 
   .hero h1{
@@ -651,7 +626,7 @@ footer{
   }
 
   .memories{
-    padding:55px 0 65px;
+    padding:60px 0 75px;
   }
 
   .memories-head{
@@ -662,22 +637,40 @@ footer{
     font-size:16px;
   }
 
-  .memory-grid{
-    grid-template-columns:1fr;
+  .photo-mosaic{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:330px 200px 240px;
+    gap:8px;
   }
 
-  .memory-card,
-  .memory-card.large{
-    min-height:420px;
+  .mosaic-photo.big{
+    grid-column:1 / 3;
     grid-row:auto;
   }
 
+  .mosaic-photo.wide{
+    grid-column:1 / 3;
+  }
+
   main{
-    padding-top:40px;
+    padding-top:35px;
+  }
+
+  .story-photo{
+    height:390px;
+  }
+
+  .story-double{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .story-double .story-photo{
+    height:300px;
   }
 
   .closing{
-    height:500px;
+    height:510px;
   }
 
   .closing-text{
@@ -686,14 +679,10 @@ footer{
     bottom:28px;
   }
 }
-
 </style>
 </head>
 
 <body>
-
-
-<!-- PORTADA -->
 
 <section class="hero">
 
@@ -754,8 +743,6 @@ footer{
 </section>
 
 
-<!-- RECUERDOS -->
-
 <section class="memories">
 
   <div class="memories-head">
@@ -765,62 +752,34 @@ footer{
     </small>
 
     <p>
-      Ya tenemos varias historias.
+      Ya tenemos varias historias.<br>
       Esta vez, el destino viene con un pequeño juego.
     </p>
 
   </div>
 
+  <div class="photo-mosaic">
 
-  <div class="memory-grid">
-
-    <div class="memory-card large">
-
-      <img
-        src="calle.webp"
-        alt="Un recuerdo juntos"
-      >
-
-      <div class="memory-label">
-        UNA HISTORIA MÁS
-      </div>
-
+    <div class="mosaic-photo big">
+      <img src="calle.webp" alt="Un recuerdo juntos">
     </div>
 
-
-    <div class="memory-card">
-
-      <img
-        src="nieve.webp"
-        alt="Un recuerdo juntos"
-      >
-
-      <div class="memory-label">
-        NOSOTROS
-      </div>
-
+    <div class="mosaic-photo">
+      <img src="nieve.webp" alt="Un recuerdo juntos">
     </div>
 
+    <div class="mosaic-photo">
+      <img src="luna.webp" alt="Un recuerdo juntos">
+    </div>
 
-    <div class="memory-card">
-
-      <img
-        src="luna.webp"
-        alt="Un recuerdo juntos"
-      >
-
-      <div class="memory-label">
-        Y LO QUE VIENE
-      </div>
-
+    <div class="mosaic-photo wide">
+      <img src="estadio.webp" alt="Un recuerdo juntos">
     </div>
 
   </div>
 
 </section>
 
-
-<!-- PISTAS -->
 
 <main>
 
@@ -841,7 +800,6 @@ footer{
 
   </div>
 
-
   <div class="progress-info">
 
     <span>
@@ -854,33 +812,18 @@ footer{
 
   </div>
 
-
   <div class="progress">
-
-    <div
-      class="progress-bar"
-      id="progressBar">
-    </div>
-
+    <div class="progress-bar" id="progressBar"></div>
   </div>
 
-
-  <div
-    class="clues"
-    id="clues">
-  </div>
+  <div class="clues" id="clues"></div>
 
 </main>
 
 
-<!-- CIERRE -->
-
 <section class="closing">
 
-  <img
-    src="noche.webp"
-    alt="Nosotros"
-  >
+  <img src="noche.webp" alt="Nosotros">
 
   <div class="closing-text">
 
@@ -902,11 +845,7 @@ footer{
 </footer>
 
 
-<!-- MODAL -->
-
-<div
-  class="modal"
-  id="modal">
+<div class="modal" id="modal">
 
   <div class="modal-box">
 
@@ -934,10 +873,6 @@ footer{
 
 
 <script>
-
-/* =========================================
-   EDITA SOLAMENTE ESTA PARTE
-   ========================================= */
 
 const pistas = [
 
@@ -989,15 +924,8 @@ const pistas = [
 ];
 
 
-/* FECHA DEL VIAJE */
-
 const fechaViaje =
   new Date("2026-10-10T00:00:00");
-
-
-/* =========================================
-   DESDE AQUÍ NO NECESITAS EDITAR
-   ========================================= */
 
 
 function fechaLocal(fecha){
@@ -1067,7 +995,6 @@ function renderClues(){
         ${numero}
       </div>
 
-
       <div class="clue-top">
 
         <div class="clue-number">
@@ -1082,13 +1009,11 @@ function renderClues(){
 
       </div>
 
-
       <h3>
         ${available
           ? "Hay algo que descubrir"
           : "Pista por descubrir"}
       </h3>
-
 
       <div class="unlock-date">
 
@@ -1101,7 +1026,6 @@ function renderClues(){
 
       </div>
 
-
       <button
         class="open-button"
         onclick="openClue(${index})">
@@ -1111,7 +1035,6 @@ function renderClues(){
           : "🔒 DESCUBRIR PISTA"}
 
       </button>
-
 
       <div
         class="reveal"
@@ -1129,6 +1052,71 @@ function renderClues(){
 
 
     container.appendChild(card);
+
+
+    if(index === 2){
+
+      const memory =
+        document.createElement("div");
+
+      memory.className =
+        "story-break";
+
+      memory.innerHTML=`
+
+        <div class="story-photo">
+
+          <img
+            src="faro.webp"
+            alt="Un recuerdo juntos"
+          >
+
+        </div>
+
+      `;
+
+      container.appendChild(memory);
+
+    }
+
+
+    if(index === 5){
+
+      const memory =
+        document.createElement("div");
+
+      memory.className =
+        "story-break";
+
+      memory.innerHTML=`
+
+        <div class="story-double">
+
+          <div class="story-photo">
+
+            <img
+              src="luna.webp"
+              alt="Un recuerdo juntos"
+            >
+
+          </div>
+
+          <div class="story-photo">
+
+            <img
+              src="estadio.webp"
+              alt="Un recuerdo juntos"
+            >
+
+          </div>
+
+        </div>
+
+      `;
+
+      container.appendChild(memory);
+
+    }
 
   });
 
@@ -1252,10 +1240,6 @@ function updateProgress(){
 }
 
 
-/* =========================================
-   CONTADOR
-   ========================================= */
-
 function countdown(){
 
   const ahora =
@@ -1342,13 +1326,8 @@ function countdown(){
 
 
 renderClues();
-
 countdown();
-
-setInterval(
-  countdown,
-  1000
-);
+setInterval(countdown,1000);
 
 </script>
 
