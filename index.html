@@ -237,7 +237,11 @@ body:before{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(7,17,31,.02),rgba(7,17,31,.12));
+  background:linear-gradient(
+    180deg,
+    rgba(7,17,31,.02),
+    rgba(7,17,31,.12)
+  );
   pointer-events:none;
 }
 
@@ -416,23 +420,22 @@ main{
   color:#fff;
 }
 
+.final-button{
+  margin-top:28px;
+  border-color:rgba(242,213,156,.65);
+  background:rgba(217,180,109,.12);
+}
+
 @keyframes reveal{
   from{
     opacity:0;
     transform:translateY(10px);
   }
+
   to{
     opacity:1;
     transform:translateY(0);
   }
-}
-
-/* BOTÓN FINAL */
-
-.final-button{
-  margin-top:28px;
-  border-color:rgba(242,213,156,.65);
-  background:rgba(217,180,109,.12);
 }
 
 /* FOTOS ENTRE PISTAS */
@@ -460,7 +463,11 @@ main{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(7,17,31,.02),rgba(7,17,31,.15));
+  background:linear-gradient(
+    180deg,
+    rgba(7,17,31,.02),
+    rgba(7,17,31,.15)
+  );
 }
 
 .story-double{
@@ -599,6 +606,7 @@ main{
     opacity:0;
     transform:scale(.95);
   }
+
   to{
     opacity:1;
     transform:scale(1);
@@ -707,6 +715,7 @@ main{
   from{
     opacity:0;
   }
+
   to{
     opacity:1;
   }
@@ -717,11 +726,14 @@ main{
     opacity:0;
     transform:translateY(25px) scale(.98);
   }
+
   to{
     opacity:1;
     transform:translateY(0) scale(1);
   }
 }
+
+/* FOOTER */
 
 footer{
   text-align:center;
@@ -985,6 +997,8 @@ footer{
 </footer>
 
 
+<!-- MODAL PISTAS BLOQUEADAS -->
+
 <div class="modal" id="modal">
 
   <div class="modal-box">
@@ -1054,9 +1068,27 @@ footer{
 
 <script>
 
-  const MODO_PRUEBA = true;
+/*
+==================================================
+MODO PRUEBA
+==================================================
+
+true  = todas las pistas disponibles ahora
+false = funcionamiento normal según las fechas
+
+ANTES DE PUBLICAR LA WEB PARA ELLA:
+CAMBIAR true POR false.
+*/
+
+const MODO_PRUEBA = true;
+
+
+/* ==================================================
+   PISTAS
+================================================== */
 
 const pistas = [
+
   {
     fecha:"2026-09-28",
     texto:"Este viaje será fuera de Chile."
@@ -1116,12 +1148,21 @@ const pistas = [
     fecha:"2026-10-09",
     texto:"El país que visitaremos comparte una isla con otro país."
   }
+
 ];
 
+
+/* ==================================================
+   FECHA DEL VIAJE
+================================================== */
 
 const fechaViaje =
   new Date("2026-10-10T00:00:00");
 
+
+/* ==================================================
+   FECHAS
+================================================== */
 
 function fechaLocal(fecha){
 
@@ -1153,6 +1194,10 @@ function formatoFecha(fecha){
 }
 
 
+/* ==================================================
+   RENDERIZAR PISTAS
+================================================== */
+
 function renderClues(){
 
   const container =
@@ -1169,11 +1214,22 @@ function renderClues(){
     const unlock =
       fechaLocal(pista.fecha);
 
+
+    /*
+    Si MODO_PRUEBA es true:
+    todas aparecen disponibles.
+
+    Si es false:
+    se utiliza la fecha real.
+    */
+
     const available =
-      ahora >= unlock;
+      MODO_PRUEBA || ahora >= unlock;
+
 
     const card =
       document.createElement("article");
+
 
     card.className =
       "clue " +
@@ -1190,6 +1246,7 @@ function renderClues(){
         ${numero}
       </div>
 
+
       <div class="clue-top">
 
         <div class="clue-number">
@@ -1204,11 +1261,15 @@ function renderClues(){
 
       </div>
 
+
       <h3>
+
         ${available
           ? "Hay algo que descubrir"
           : "Pista por descubrir"}
+
       </h3>
+
 
       <div class="unlock-date">
 
@@ -1221,6 +1282,7 @@ function renderClues(){
 
       </div>
 
+
       <button
         class="open-button"
         onclick="openClue(${index})">
@@ -1230,6 +1292,7 @@ function renderClues(){
           : "🔒 DESCUBRIR PISTA"}
 
       </button>
+
 
       <div
         class="reveal"
@@ -1241,13 +1304,25 @@ function renderClues(){
           ${pista.texto}
         </p>
 
-        ${index === 11 ? `
+
+        ${
+          index === 11
+          ?
+          `
           <button
             class="open-button final-button"
-            onclick="event.stopPropagation(); revelarDestino()">
+            onclick="
+              event.stopPropagation();
+              revelarDestino();
+            ">
+
             DESCUBRIR DESTINO →
+
           </button>
-        ` : ""}
+          `
+          :
+          ""
+        }
 
       </div>
 
@@ -1256,6 +1331,8 @@ function renderClues(){
 
     container.appendChild(card);
 
+
+    /* FOTO DESPUÉS DE PISTA 3 */
 
     if(index === 2){
 
@@ -1283,6 +1360,8 @@ function renderClues(){
     }
 
 
+    /* FOTOS DESPUÉS DE PISTA 6 */
+
     if(index === 5){
 
       const memory =
@@ -1303,6 +1382,7 @@ function renderClues(){
             >
 
           </div>
+
 
           <div class="story-photo">
 
@@ -1329,6 +1409,10 @@ function renderClues(){
 }
 
 
+/* ==================================================
+   ABRIR PISTA
+================================================== */
+
 function openClue(index){
 
   const pista =
@@ -1341,7 +1425,12 @@ function openClue(index){
     new Date();
 
 
-  if(ahora < unlock){
+  /*
+  En modo prueba ignoramos el bloqueo.
+  En modo normal se comprueba la fecha.
+  */
+
+  if(!MODO_PRUEBA && ahora < unlock){
 
     document
       .getElementById("modalText")
@@ -1349,14 +1438,16 @@ function openClue(index){
 
       `Esta pista estará disponible el
       <strong style="color:#f2d59c">
-      ${formatoFecha(pista.fecha)}
+        ${formatoFecha(pista.fecha)}
       </strong>.
       <br><br>
       Vuelve cuando llegue el momento.`;
 
+
     document
       .getElementById("modal")
       .classList.add("show");
+
 
     return;
 
@@ -1372,6 +1463,10 @@ function openClue(index){
   reveal.classList.toggle("visible");
 
 
+  /*
+  Guarda la pista como descubierta
+  */
+
   localStorage.setItem(
     `pista-${index}`,
     "descubierta"
@@ -1382,6 +1477,10 @@ function openClue(index){
 
 }
 
+
+/* ==================================================
+   MODAL
+================================================== */
 
 function closeModal(){
 
@@ -1405,6 +1504,10 @@ document
     }
   );
 
+
+/* ==================================================
+   PROGRESO
+================================================== */
 
 function updateProgress(){
 
@@ -1442,6 +1545,10 @@ function updateProgress(){
 
 }
 
+
+/* ==================================================
+   CUENTA REGRESIVA
+================================================== */
 
 function countdown(){
 
@@ -1528,13 +1635,16 @@ function countdown(){
 }
 
 
-/* REVELACIÓN DEL DESTINO */
+/* ==================================================
+   REVELACIÓN FINAL
+================================================== */
 
 function revelarDestino(){
 
   document
     .getElementById("destinationReveal")
     .classList.add("show");
+
 
   document.body.style.overflow="hidden";
 
@@ -1547,14 +1657,24 @@ function cerrarDestino(){
     .getElementById("destinationReveal")
     .classList.remove("show");
 
+
   document.body.style.overflow="";
 
 }
 
 
+/* ==================================================
+   INICIAR
+================================================== */
+
 renderClues();
+
 countdown();
-setInterval(countdown,1000);
+
+setInterval(
+  countdown,
+  1000
+);
 
 </script>
 
