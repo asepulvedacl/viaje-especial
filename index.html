@@ -8,7 +8,7 @@
 <title>¿Dónde vamos?</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
 
 :root{
   --bg:#07111f;
@@ -32,7 +32,7 @@ html{
 }
 
 body{
-  font-family:"DM Sans",sans-serif;
+  font-family:"Montserrat",sans-serif;
   background:
     radial-gradient(circle at 50% -10%, #173454 0%, transparent 35%),
     linear-gradient(180deg,var(--bg),#050b13);
@@ -51,6 +51,7 @@ body:before{
     linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px);
   background-size:40px 40px;
 }
+
 
 /* HERO */
 
@@ -104,6 +105,7 @@ body:before{
   color:#fff;
 }
 
+
 /* COUNTDOWN */
 
 .countdown{
@@ -142,6 +144,7 @@ body:before{
   letter-spacing:2px;
 }
 
+
 /* MAIN */
 
 main{
@@ -174,6 +177,7 @@ main{
   font-size:14px;
 }
 
+
 /* PROGRESS */
 
 .progress-info{
@@ -198,6 +202,7 @@ main{
   background:var(--gold);
   transition:.6s;
 }
+
 
 /* CARDS */
 
@@ -291,6 +296,7 @@ main{
   background:rgba(255,255,255,.015);
 }
 
+
 /* REVEAL */
 
 .reveal{
@@ -311,9 +317,10 @@ main{
 }
 
 .reveal p{
-  font-family:"Playfair Display",serif;
-  font-size:24px;
-  line-height:1.35;
+  font-family:"Montserrat",sans-serif;
+  font-size:21px;
+  font-weight:500;
+  line-height:1.55;
   color:#fff;
 }
 
@@ -327,6 +334,7 @@ main{
     transform:translateY(0);
   }
 }
+
 
 /* MODAL */
 
@@ -385,15 +393,25 @@ main{
   border-radius:12px;
   background:var(--gold);
   color:#07111f;
+  font-family:"Montserrat",sans-serif;
   font-weight:700;
   padding:13px 25px;
   cursor:pointer;
 }
 
 @keyframes modalIn{
-  from{opacity:0;transform:scale(.95)}
-  to{opacity:1;transform:scale(1)}
+  from{
+    opacity:0;
+    transform:scale(.95);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
 }
+
+
+/* FOOTER */
 
 footer{
   text-align:center;
@@ -403,7 +421,11 @@ footer{
   letter-spacing:2px;
 }
 
+
+/* MOBILE */
+
 @media(max-width:500px){
+
   .hero{
     min-height:90vh;
   }
@@ -420,10 +442,12 @@ footer{
     padding-top:40px;
   }
 }
+
 </style>
 </head>
 
 <body>
+
 
 <section class="hero">
 
@@ -492,6 +516,7 @@ footer{
 
   </div>
 
+
   <div class="progress-info">
     <span>PROGRESO</span>
     <span id="progressText">0 / 9 descubiertas</span>
@@ -500,6 +525,7 @@ footer{
   <div class="progress">
     <div class="progress-bar" id="progressBar"></div>
   </div>
+
 
   <div class="clues" id="clues"></div>
 
