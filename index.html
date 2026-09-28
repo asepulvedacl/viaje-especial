@@ -425,6 +425,130 @@ footer{
 }
 
 
+
+/* FOTOS / HISTORIA */
+.hero-photo{
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:url("fotos/portada.webp") center 42%/cover no-repeat;
+  opacity:.34;
+}
+.hero-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(7,17,31,.62) 0%,rgba(7,17,31,.80) 58%,#07111f 100%),
+    radial-gradient(circle at 50% 38%,transparent 0%,rgba(7,17,31,.42) 72%);
+}
+.hero{isolation:isolate;}
+
+.memory-break{
+  margin:50px 0 38px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.memory-photo{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid rgba(217,180,109,.18);
+  background:#0d1d30;
+  min-height:250px;
+}
+.memory-photo:first-child{
+  grid-row:span 2;
+  min-height:514px;
+}
+.memory-photo img{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  object-fit:cover;
+  transition:transform .6s ease;
+}
+.memory-photo:hover img{transform:scale(1.025);}
+.memory-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 58%,rgba(7,17,31,.62));
+  pointer-events:none;
+}
+.memory-label{
+  position:absolute;
+  left:18px;
+  bottom:16px;
+  z-index:2;
+  font-size:9px;
+  letter-spacing:2px;
+  color:#fff;
+  text-transform:uppercase;
+}
+
+.story-note{
+  margin:54px 0 22px;
+  text-align:center;
+}
+.story-note small{
+  color:var(--gold);
+  letter-spacing:3px;
+  font-size:9px;
+  font-weight:700;
+}
+.story-note p{
+  max-width:520px;
+  margin:12px auto 0;
+  color:#d9e0e8;
+  font-size:15px;
+  line-height:1.7;
+}
+
+.final-memory{
+  position:relative;
+  margin-top:55px;
+  height:460px;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(217,180,109,.22);
+}
+.final-memory img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 36%;
+}
+.final-memory:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 38%,rgba(7,17,31,.88) 100%);
+}
+.final-copy{
+  position:absolute;
+  z-index:2;
+  left:26px;
+  right:26px;
+  bottom:25px;
+}
+.final-copy small{
+  color:var(--gold2);
+  letter-spacing:3px;
+  font-size:9px;
+  font-weight:700;
+}
+.final-copy p{
+  margin-top:8px;
+  color:#fff;
+  font-size:22px;
+  font-weight:600;
+  line-height:1.35;
+}
+
+
 /* MOBILE */
 
 @media(max-width:500px){
@@ -444,6 +568,21 @@ footer{
   main{
     padding-top:40px;
   }
+
+  .memory-break{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:40px;
+  }
+
+  .memory-photo{min-height:165px;}
+  .memory-photo:first-child{min-height:339px;}
+  .memory-label{left:12px;bottom:11px;font-size:8px;}
+
+  .final-memory{height:410px;}
+  .final-copy{left:20px;right:20px;bottom:20px;}
+  .final-copy p{font-size:19px;}
+
 }
 
 </style>
@@ -453,6 +592,8 @@ footer{
 
 
 <section class="hero">
+
+  <div class="hero-photo" aria-hidden="true"></div>
 
   <div class="hero-inner">
 
@@ -530,7 +671,35 @@ footer{
   </div>
 
 
+  <div class="story-note">
+    <small>ANTES DE LA PRÓXIMA AVENTURA</small>
+    <p>Ya tenemos varias historias. Esta vez, el destino viene con un pequeño juego.</p>
+  </div>
+
+  <div class="memory-break">
+    <div class="memory-photo">
+      <img src="fotos/calle.webp" alt="Un recuerdo juntos" loading="lazy">
+      <span class="memory-label">Una historia más</span>
+    </div>
+    <div class="memory-photo">
+      <img src="fotos/nieve.webp" alt="Un recuerdo juntos" loading="lazy">
+      <span class="memory-label">Nosotros</span>
+    </div>
+    <div class="memory-photo">
+      <img src="fotos/luna.webp" alt="Un recuerdo juntos" loading="lazy">
+      <span class="memory-label">Y lo que viene</span>
+    </div>
+  </div>
+
   <div class="clues" id="clues"></div>
+
+  <div class="final-memory">
+    <img src="fotos/noche.webp" alt="Nosotros" loading="lazy">
+    <div class="final-copy">
+      <small>PRÓXIMO CAPÍTULO</small>
+      <p>La próxima historia todavía no tiene foto.</p>
+    </div>
+  </div>
 
 </main>
 
@@ -696,7 +865,7 @@ function renderClues(){
       <h3>
         ${available
           ? "Hay algo que descubrir"
-          : "Información clasificada"}
+          : "Pista por descubrir"}
       </h3>
 
       <div class="unlock-date">
