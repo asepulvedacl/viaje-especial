@@ -427,6 +427,14 @@ main{
   }
 }
 
+/* BOTÓN FINAL */
+
+.final-button{
+  margin-top:28px;
+  border-color:rgba(242,213,156,.65);
+  background:rgba(217,180,109,.12);
+}
+
 /* FOTOS ENTRE PISTAS */
 
 .story-break{
@@ -597,6 +605,124 @@ main{
   }
 }
 
+/* REVELACIÓN FINAL */
+
+.destination-reveal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4,12,20,.20) 0%,
+      rgba(4,12,20,.40) 45%,
+      rgba(4,12,20,.88) 100%
+    ),
+    url("puntacana.webp") center/cover no-repeat;
+}
+
+.destination-reveal.show{
+  display:flex;
+  animation:destinationIn 1s ease;
+}
+
+.destination-content{
+  position:relative;
+  z-index:2;
+  max-width:800px;
+  animation:destinationContent 1.4s ease;
+  text-shadow:0 4px 25px rgba(0,0,0,.55);
+}
+
+.destination-content small{
+  display:block;
+  color:var(--gold2);
+  letter-spacing:5px;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.destination-content h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(58px,14vw,115px);
+  line-height:.9;
+  letter-spacing:-3px;
+  margin-bottom:20px;
+}
+
+.destination-country{
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:3px;
+}
+
+.destination-line{
+  width:50px;
+  height:1px;
+  background:var(--gold2);
+  margin:30px auto;
+}
+
+.destination-date{
+  color:var(--gold2);
+  letter-spacing:3px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.destination-message{
+  margin-top:25px;
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  font-size:clamp(18px,4vw,24px);
+  line-height:1.5;
+}
+
+.destination-close{
+  position:absolute;
+  z-index:3;
+  right:25px;
+  top:20px;
+  width:45px;
+  height:45px;
+  background:rgba(7,17,31,.35);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;
+  color:white;
+  font-size:29px;
+  line-height:40px;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+}
+
+@keyframes destinationIn{
+  from{
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }
+}
+
+@keyframes destinationContent{
+  from{
+    opacity:0;
+    transform:translateY(25px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
 footer{
   text-align:center;
   padding:30px;
@@ -678,7 +804,21 @@ footer{
     right:20px;
     bottom:28px;
   }
+
+  .destination-reveal{
+    padding:25px;
+  }
+
+  .destination-content h1{
+    letter-spacing:-2px;
+  }
+
+  .destination-close{
+    right:16px;
+    top:16px;
+  }
 }
+
 </style>
 </head>
 
@@ -703,7 +843,7 @@ footer{
     <p class="subtitle">
       Hay un viaje esperando.<br>
       El destino todavía es secreto.<br>
-      Nueve pistas te llevarán hasta él.
+      Doce pistas te llevarán hasta él.
     </p>
 
     <div class="trip-date">
@@ -786,7 +926,7 @@ footer{
   <div class="section-head">
 
     <small>
-     DESCUBRIENTO NUESTRO VIAJE
+      DESCUBRIENDO NUESTRO VIAJE
     </small>
 
     <h2>
@@ -807,7 +947,7 @@ footer{
     </span>
 
     <span id="progressText">
-      0 / 9 descubiertas
+      0 / 12 descubiertas
     </span>
 
   </div>
@@ -841,7 +981,7 @@ footer{
 
 
 <footer>
-  9 PISTAS · 1 DESTINO
+  12 PISTAS · 1 DESTINO
 </footer>
 
 
@@ -872,10 +1012,50 @@ footer{
 </div>
 
 
+<!-- REVELACIÓN FINAL -->
+
+<div class="destination-reveal" id="destinationReveal">
+
+  <button
+    class="destination-close"
+    onclick="cerrarDestino()"
+    aria-label="Cerrar">
+    ×
+  </button>
+
+  <div class="destination-content">
+
+    <small>
+      EL DESTINO ES
+    </small>
+
+    <h1>
+      PUNTA CANA
+    </h1>
+
+    <p class="destination-country">
+      REPÚBLICA DOMINICANA 🇩🇴
+    </p>
+
+    <div class="destination-line"></div>
+
+    <p class="destination-date">
+      10 — 18 OCTUBRE 2026
+    </p>
+
+    <p class="destination-message">
+      Ahora sí... comienza nuestra próxima aventura. ❤️
+    </p>
+
+  </div>
+
+</div>
+
+
 <script>
 
 const pistas = [
-{
+  {
     fecha:"2026-09-28",
     texto:"Este viaje será fuera de Chile."
   },
@@ -919,10 +1099,12 @@ const pistas = [
     fecha:"2026-10-06",
     texto:"En nuestro destino podremos hablar español o portugués sin problemas."
   },
+
   {
     fecha:"2026-10-07",
     texto:"Necesitaremos pasaporte."
   },
+
   {
     fecha:"2026-10-08",
     texto:"El mar tendrá bastante protagonismo en este viaje."
@@ -932,7 +1114,6 @@ const pistas = [
     fecha:"2026-10-09",
     texto:"El país que visitaremos comparte una isla con otro país."
   }
-
 ];
 
 
@@ -1057,6 +1238,14 @@ function renderClues(){
         <p>
           ${pista.texto}
         </p>
+
+        ${index === 11 ? `
+          <button
+            class="open-button final-button"
+            onclick="event.stopPropagation(); revelarDestino()">
+            DESCUBRIR DESTINO →
+          </button>
+        ` : ""}
 
       </div>
 
@@ -1333,6 +1522,30 @@ function countdown(){
     .getElementById("seconds")
     .textContent =
     String(segundos).padStart(2,"0");
+
+}
+
+
+/* REVELACIÓN DEL DESTINO */
+
+function revelarDestino(){
+
+  document
+    .getElementById("destinationReveal")
+    .classList.add("show");
+
+  document.body.style.overflow="hidden";
+
+}
+
+
+function cerrarDestino(){
+
+  document
+    .getElementById("destinationReveal")
+    .classList.remove("show");
+
+  document.body.style.overflow="";
 
 }
 
